@@ -1,6 +1,6 @@
 ---
 title: "BEE 4750/5750 Homework 1"
-author: "Your name here (your netID here)"
+author: "Sonjay Lake (SVL24)"
 date: `j import Dates; Dates.Date(Dates.now())`
 weave_options:
     term: true
@@ -22,33 +22,136 @@ Pkg.instantiate()
 # Problem 1
 
 ## Problem 1.1
-
-```julia
-using GraphRecipes, Plots
-
-A = [0 1 1 1;
-		 0 0 0 1;
-		 0 0 0 1;
-   	 	 0 0 0 0]
-	
-names = ["Plant", "Land Treatment", "Chem Treatment", "Pristine Brook"]
-shapes=[:hexagon, :rect, :rect, :hexagon]
-xpos = [0, -1, -0.25, 1]
-ypos = [1, 0, 0, -1]
-
-graphplot(A, names=names, markersize=0.15, markershapes=shapes, markercolor=:white, x=xpos, y=ypos)
-```
-
+![Diagram Pathways](hw1finaldiagram.png)
 ## Problem 1.2
 
+```math
+\begin{alignat*}{0}
+\text {There are many possible methods for treating the } 100 \text{ }\frac{kg}{day} \\
+\text {of wastewater released by the plant.} \\
+\text {Creating a model for this scenario would involve a model that took} \\
+\text {into account a combination of the three different treatment paths. } \\
+\text {First, one would have to take into the account the constraint } \\
+\text {indicated by the diagram:} \\
+\\
+        X_{1} + X_{2} + X{3} = 100 \\
+\\
+\text {which is the conservation of mass between all three treatment methods.} \\ \\
+\text {This concept can be extended to the YUK concentration after each method as well.}\\ \\
+        (C_{i,1} * X_{1}) + (C_{i,2}*X_{2}) + (C_{i,3}*X_{3}) = C_{f}
+\\\\
+\text {As an example, a treatment plan using solely land treatment would } \\
+\text {have a final concentration: } \\\\
+C_{f} = C{i,1} * X_{1} \\\\
+\text {with } X_{1} = \text{ } 100 \frac{kg}{day} \text {.} \\\\
+\text {The cost would be computed similarly using the equations in the diagram.}
+
+\end{alignat*}{0}
+```
 ## Problem 1.3
+```julia
+function model(x1,x2,x3)
+#Function that computes the final YUK concentration given the following input variables:
+#=
+x1 = wastewater allocated to land treatment
+x2 = wasteater allocated to chemical treatment
+x3 = wastewawter allocated to no treatment
+x1+x2+x3 must sum to 100
+=#
+    c1 = x1*0.2
+    c2 = x2*0.005
+    c3 = x3 
+    cf = c1 + c2 + c3
+
+    cost = ((x1^2)/20) + (1.5*x2)   
+    return cost, cf
+
+end 
+
+```
 
 ## Problem 1.4
+```julia
+using Distributions
+using Plots
 
+#X = cost, y = concentration
+
+
+x = []
+y = []
+for k in 1:100
+    whocares = rand(Dirichlet(3,1)) * 100
+    cost_val, conc = model(whocares[1],whocares[2],whocares[3])
+    append!(x,cost_val); append!(y,conc)
+    
+end 
+
+scatter(x,y,legend=false,xlabel="Cost (Dollars)" ,ylabel="Concentration (kg/m^3)",plot_title="Concentration vs. Cost" )
+hline!([20])
+
+```
+```math
+\begin{alignat*}{0}
+\text {From the plot above we can see that the cost for treatment that meets the standard (under }
+ 20 \text { }\frac{kg}{m^3} \\ 
+ \text {is generally at least 100 dollars. }
+
+\end{alignat*}{0}
+```
 ## Problem 1.5
 
-## Problem 1.6
+```math
+\begin{alignat*}{0}
+\text {I would select a treatment plan that meets the criteria while minimizing the } \\
+\text {cost. This would mean I would be looking for points below the horiziontal } \\ 
+\text {line and as far to the left as possible. This plan could reflect the interest} \\
+\text {of different parties because of the fact that it includes both cost and } \\
+\text {YUK concentration. Factory owners may want to maximize profit and look forward} \\
+\text {to barely meeting the treatment standards if it means a lower price. } \\
+\text {On the other hand, environmental and public agencies may be fine with }\\
+\text {not optimizing price in favor of lowering pollution concentration as much} \\
+\text {as possible. The plot in problem 1.4 presents both of these scenarios,} \\
+\text {as well as ones where they overlap.} 
 
-## Problem 1.7
+\\\\
+
+\text {The design from problem 1.4 sought to use a variety of combinations.} \\
+\text {However, this is restricted because it only has 100 data points.} \\
+\text {A design model that uses preset combinations of x1, x    2, and x3 would }\\
+\text {also be restricted, but its data points would be static and allow for } \\
+\text {consistent analysis. Overall, I think that the numerical setup from }\\
+\text {the previous problem allowed me to properly analyze the correlation} \\
+\text {between cost and concentration so that a reasonable decision could be made.}\\
+\text {A different experimental design may have changed the outcome only slightly } \\
+\text {since the values for how much flow is going into each treatment plant} \\
+\text {was effectively selected at random with certain constaints.} 
+
+\end{alignat*}{0}
+```
+
+## Problem 1.6
+```math
+\begin{alignat*}{0}
+\text {The model can be improved by adding more detail. One example of } \\
+\text {this could be investigating the YUK pollutants reactions in the environment.} \\
+\text {Perhaps the YUK compound has a decay rate that makes method 3} \\
+\text {(no treatment) more viable }
+\text {than it really seems. One assumption was that the }\\
+\text {system was closed. It is 
+possible that some of the wastewater is lost to the environment, }\\
+\text {altering the volume of flow 
+and concentration of YUK that ultimately ends up in the stream.} \\
+\text {These results only apply to a perfectly closed system without reaction of YUK in } \\
+\text {the environment.}
+
+\end{alignat*}{0}
+
+```
 
 # References
+
+```julia, eval=false
+include("compile_report.jl")
+compile_report("solution-template.jmd","html")
+```
