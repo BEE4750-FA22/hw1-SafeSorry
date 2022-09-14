@@ -23,14 +23,20 @@ Pkg.instantiate()
 
 ## Problem 1.1
 ![Diagram Pathways](hw1finaldiagram.png)
+
+The figure above details the three possible pathways for treating 
+the wastewater emitted by the factory. This includes land treatment,
+chemical treatment, and no treatment. All three flows end up in the 
+Pristine Brook Stream.
+
 ## Problem 1.2
 
 ```math
 \begin{alignat*}{0}
 \text {There are many possible methods for treating the } 100 \text{ }\frac{kg}{day} \\
 \text {of wastewater released by the plant.} \\
-\text {Creating a model for this scenario would involve a model that took} \\
-\text {into account a combination of the three different treatment paths. } \\
+\text {Creating a model for this scenario would involve taking into } \\
+\text {account a combination of the three different treatment paths. } \\
 \text {First, one would have to take into the account the constraint } \\
 \text {indicated by the diagram:} \\
 \\
@@ -42,7 +48,7 @@ Pkg.instantiate()
 \\\\
 \text {As an example, a treatment plan using solely land treatment would } \\
 \text {have a final concentration: } \\\\
-C_{f} = C{i,1} * X_{1} \\\\
+C_{f} = C_{i,1} * X_{1} \\\\
 \text {with } X_{1} = \text{ } 100 \frac{kg}{day} \text {.} \\\\
 \text {The cost would be computed similarly using the equations in the diagram.}
 
@@ -81,8 +87,8 @@ using Plots
 x = []
 y = []
 for k in 1:100
-    whocares = rand(Dirichlet(3,1)) * 100
-    cost_val, conc = model(whocares[1],whocares[2],whocares[3])
+    values = rand(Dirichlet(3,1)) * 100
+    cost_val, conc = model(values[1],values[2],values[3])
     append!(x,cost_val); append!(y,conc)
     
 end 
@@ -105,14 +111,14 @@ hline!([20])
 \begin{alignat*}{0}
 \text {I would select a treatment plan that meets the criteria while minimizing the } \\
 \text {cost. This would mean I would be looking for points below the horiziontal } \\ 
-\text {line and as far to the left as possible. This plan could reflect the interest} \\
-\text {of different parties because of the fact that it includes both cost and } \\
+\text {line and as far to the left as possible. This plan could reflect the interests} \\
+\text {of different parties because of the fact that it considers both cost and } \\
 \text {YUK concentration. Factory owners may want to maximize profit and look forward} \\
 \text {to barely meeting the treatment standards if it means a lower price. } \\
 \text {On the other hand, environmental and public agencies may be fine with }\\
 \text {not optimizing price in favor of lowering pollution concentration as much} \\
-\text {as possible. The plot in problem 1.4 presents both of these scenarios,} \\
-\text {as well as ones where they overlap.} 
+\text {as possible (similar to the public). The plot in problem 1.4 } \\
+\text {presents both of these scenarios, as well as ones where they overlap.} 
 
 \\\\
 
