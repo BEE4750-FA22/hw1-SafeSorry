@@ -118,7 +118,7 @@ hline!([20])
 
 \text {The design from problem 1.4 sought to use a variety of combinations.} \\
 \text {However, this is restricted because it only has 100 data points.} \\
-\text {A design model that uses preset combinations of x1, x    2, and x3 would }\\
+\text {A design model that uses preset combinations of x1, x2, and x3 would }\\
 \text {also be restricted, but its data points would be static and allow for } \\
 \text {consistent analysis. Overall, I think that the numerical setup from }\\
 \text {the previous problem allowed me to properly analyze the correlation} \\
@@ -150,8 +150,4 @@ and concentration of YUK that ultimately ends up in the stream.} \\
 ```
 
 # References
-
-```julia, eval=false
-include("compile_report.jl")
-compile_report("solution-template.jmd","html")
-```
+Stackoverflow and juliadiscourse forums
