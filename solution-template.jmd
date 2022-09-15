@@ -33,14 +33,14 @@ Pristine Brook Stream.
 
 ```math
 \begin{alignat*}{0}
-\text {There are many possible methods for treating the } 100 \text{ }\frac{kg}{day} \\
+\text {There are many possible methods for treating the } 100 \text{ }\frac{m^3}{day} \\
 \text {of wastewater released by the plant.} \\
 \text {Creating a model for this scenario would involve taking into } \\
 \text {account a combination of the three different treatment paths. } \\
 \text {First, one would have to take into the account the constraint } \\
 \text {indicated by the diagram:} \\
 \\
-        X_{1} + X_{2} + X{3} = 100 \\
+        X_{1} + X_{2} + X{3} = 100 \frac{m^3}{day} \\
 \\
 \text {which is the conservation of mass between all three treatment methods.} \\ \\
 \text {This concept can be extended to the YUK concentration after each method as well.}\\ \\
@@ -49,8 +49,21 @@ Pristine Brook Stream.
 \text {As an example, a treatment plan using solely land treatment would } \\
 \text {have a final concentration: } \\\\
 C_{f} = C_{i,1} * X_{1} \\\\
-\text {with } X_{1} = \text{ } 100 \frac{kg}{day} \text {.} \\\\
-\text {The cost would be computed similarly using the equations in the diagram.}
+\text {with } X_{1} = \text{ } 100 \frac{m^3}{day} \text {.} \\\\
+\text {The cost would be computed similarly using the equations in the diagram.} \\\\
+
+Cost = \frac{X_{1}^2}{20} \\\\
+
+\text {As another more realistic example, let's assume 50% of wastewater is treated} \\
+\text {chemically and the other 50% is put through land treatment. Because of the }\\
+\text {nature of these models, where cost and concentrations have to be balanced, }\\
+\text {a mixture of treatments is more likely to be used. This case would yield:} \\\\
+
+C_{f} = (C_{i,1} * X_{1}) + (C_{2} * X_{2}) \\ \\
+
+\text {Where } \\\\
+
+X_{1} + X_{2} = 100\frac{m^3}{day}
 
 \end{alignat*}{0}
 ```
